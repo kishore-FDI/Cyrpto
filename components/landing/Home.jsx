@@ -7,24 +7,31 @@ const Home = () => {
   const [resultData, setResultData] = useState(null)
   
   const handleSubmit = (e) => {
-    e.preventDefault()
-    const lowercaseInput = inputValue.toLowerCase()
-    const encodedInput = encodeURIComponent(lowercaseInput)
-    const url = `https://legacy.cryptool.org/ncidapi/evaluate/single_line/ciphertext?ciphertext=${encodedInput}&architecture=Transformer&architecture=FFNN&architecture=LSTM&architecture=RF&architecture=NB`
-    fetch(url, 
-      {
+    e.preventDefault();
+  
+    // Remove all non-alphanumeric characters and convert to lowercase
+    const cleanedInput = inputValue.replace(/[^a-z0-9]/gi, '').toLowerCase();
+  
+    const url = `https://legacy.cryptool.org/ncidapi/evaluate/single_line/ciphertext?ciphertext=${cleanedInput}&architecture=Transformer&architecture=FFNN&architecture=LSTM&architecture=RF&architecture=NB`;
+    
+    fetch(url, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-      }
+      },
     })
     .then(response => response.json())
     .then(data => {
-      console.log('Submitted:', lowercaseInput, data)
-      setResultData(data.payload)
+      console.log('Submitted:', cleanedInput, data);
+      setResultData(data.payload);
     })
-    console.log(encodedInput)
-  }
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  
+    console.log(cleanedInput); // Log cleaned input
+  };
+  
   return (
     <div className='bg-slate-700 w-100 h-[1000vh] m=[20vh]'>
       <h1 className='font-bold text-white flex-row text-center pt-[30vh] text-4xl'>Welcome to CryptoKhan!</h1>
@@ -58,7 +65,7 @@ const Home = () => {
                 .map(([cipher, confidence]) => (
                   <tr key={cipher} className='hover:bg-gray-100'>
                     <td className='border p-2 text-black'>{cipher}</td>
-                    <td className='border p-2 text-black'>{(confidence * 100).toFixed(2)}%</td>
+                    <td className='border p-2 text-black'>{(confidence ).toFixed(2)}%</td>
                   </tr>
                 ))}
             </tbody>
