@@ -34,7 +34,7 @@ const Home = () => {
   
   return (
     <div className='bg-slate-700 w-100 min-h-[100vh] h-auto pb-10'>
-      <h1 className='font-bold text-white flex-row text-center pt-[10vh] text-4xl'>Welcome to CryptoKhan!</h1>
+      <h1 className='font-bold text-white flex-row text-center pt-[10vh] text-4xl'>Welcome to CryptoKhan</h1>
       <form onSubmit={handleSubmit} className='flex flex-col items-center mt-4'>
         <textarea
           className='rounded-lg px-4 py-2 w-[600px] h-32 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-200 text-gray-800 placeholder-gray-500 resize-y'
