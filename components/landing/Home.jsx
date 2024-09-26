@@ -1,40 +1,42 @@
-'use client'
-
-import React, { useState } from 'react'
+'use client';
+import React, { useState } from 'react';
 
 const Home = () => {
-  const [inputValue, setInputValue] = useState('')
-  const [resultData, setResultData] = useState(null)
+  const [inputValue, setInputValue] = useState('');
+  const [resultData, setResultData] = useState(null);
   
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     // Remove all non-alphanumeric characters and convert to lowercase
     const cleanedInput = inputValue.replace(/[^a-z0-9]/gi, '').toLowerCase();
-  
-    const url = `https://legacy.cryptool.org/ncidapi/evaluate/single_line/ciphertext?ciphertext=${cleanedInput}&architecture=Transformer&architecture=FFNN&architecture=LSTM&architecture=RF&architecture=NB`;
     
-    fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log('Submitted:', cleanedInput, data);
-      setResultData(data.payload);
-    })
-    .catch(error => {
+    try {
+      const response = await fetch('/api/evaluate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ cleanedInput }),
+      });
+
+      const data = await response.json();
+      
+      if (response.ok) {
+        setResultData(data.payload);
+      } else {
+        console.error('Error:', data.error);
+      }
+    } catch (error) {
       console.error('Error:', error);
-    });
-  
-    console.log(cleanedInput); // Log cleaned input
+    }
   };
-  
+
   return (
     <div className='bg-slate-700 w-100 min-h-[100vh] h-auto pb-10'>
-      <h1 className='font-bold text-white flex-row text-center pt-[10vh] text-4xl'>Welcome to CryptoKhan</h1>
+      <h1 className='font-bold text-white flex-row text-center pt-[10vh] text-4xl'>
+        Welcome to CryptoKhan
+      </h1>
       <form onSubmit={handleSubmit} className='flex flex-col items-center mt-4'>
         <textarea
           className='rounded-lg px-4 py-2 w-[600px] h-32 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-200 text-gray-800 placeholder-gray-500 resize-y'
@@ -65,15 +67,15 @@ const Home = () => {
                 .map(([cipher, confidence]) => (
                   <tr key={cipher} className='hover:bg-gray-100'>
                     <td className='border p-2 text-black'>{cipher}</td>
-                    <td className='border p-2 text-black'>{(confidence ).toFixed(2)}%</td>
+                    <td className='border p-2 text-black'>{(confidence).toFixed(2)}%</td>
                   </tr>
                 ))}
             </tbody>
           </table>
-        </div>  
+        </div>
       )}
     </div>
-  )
-}
+  );
+};
 
 export default Home;
