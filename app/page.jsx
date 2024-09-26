@@ -1,8 +1,8 @@
-import Home from "@/components/landing/Home";
+import Login from "./login/page";
 export default function Home1() {
   return (
     <div>
-      <Home/>
+      <Login/>
     </div>
   );
 }

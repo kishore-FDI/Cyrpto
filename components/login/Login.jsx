@@ -1,7 +1,9 @@
 'use client'
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const Login = () => {
+  const router = useRouter();
   // Manage state to toggle between login and registration
   const [isRegistering, setIsRegistering] = useState(false);
 
@@ -23,6 +25,14 @@ const Login = () => {
     }, 750);
   };
 
+  // Function to handle form submission
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Here you would typically handle the login/registration logic
+    // For now, we'll just redirect to the home page
+    router.push('/home');
+  };
+
   return (
     <div className={`w-screen h-screen font-bold text-[2vh] bg-white flex justify-end relative transition-all duration-1000 ${isRegistering ? 'flex-row' : 'flex-row-reverse'}`}>
       {/* Left side with the image */}
@@ -38,7 +48,7 @@ const Login = () => {
         </h2>
 
         {/* Form */}
-        <form className="flex flex-col w-3/4 max-w-[80vw] transition-all duration-500">
+        <form onSubmit={handleSubmit} className="flex flex-col w-3/4 max-w-[80vw] transition-all duration-500">
           {isRegistering ? (
             <>
               <label htmlFor="name" className="mb-[1vh] text-black transition-all duration-500">Name:</label>
@@ -48,7 +58,7 @@ const Login = () => {
               <input type="email" id="email" name="email" className="mb-[2vh] h-[7vh] p-[1vh] border-[0.4vh] border-[#AFB3FF] rounded-[3vh] transition-all duration-500" />
 
               <label htmlFor="password" className="mb-[1vh] text-black transition-all duration-500">Password:</label>
-              <input type="password" id="password" name="password" className="mb-[2vh] h-[7vh] p-[1vh] border-[0.4vh] border-[#AFB3FF] rounded-[3vh] transition-all duration-500" />
+              <input type="password" id="password" name="password" className="mb-[2vh] h-[7vh] p-[1vh] border-[0.4vh] border-[#AFB3FF] rounded-[3vh] transition-all duration-500 text-black" />
 
               <button type="submit" className="bg-[#AFB3FF] text-white mt-[5.5vh] p-[1vh] rounded-[3vh] font-semibold hover:bg-[#8D90FF] text-[2vh] transition-all duration-500">
                 Register
@@ -60,7 +70,7 @@ const Login = () => {
               <input type="text" id="username" name="username" className="mb-[2vh] h-[7vh] p-[1vh] border-[0.4vh] border-[#AFB3FF] rounded-[3vh] transition-all duration-500" />
 
               <label htmlFor="password" className="mb-[1vh] text-black transition-all duration-500">Password:</label>
-              <input type="password" id="password" name="password" className="mb-[2vh] h-[7vh] p-[1vh] border-[0.4vh] border-[#AFB3FF] rounded-[3vh] transition-all duration-500" />
+              <input type="password" id="password" name="password" className="mb-[2vh] h-[7vh] p-[1vh] border-[0.4vh] border-[#AFB3FF] rounded-[3vh] transition-all duration-500 text-black" />
 
               <button type="submit" className="bg-[#AFB3FF] text-white mt-[5.5vh] p-[1vh] rounded-[3vh] font-semibold hover:bg-[#8D90FF] text-[2vh] transition-all duration-500">
                 Login
