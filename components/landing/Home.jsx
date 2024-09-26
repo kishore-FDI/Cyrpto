@@ -1,9 +1,12 @@
 'use client';
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const Home = () => {
   const [inputValue, setInputValue] = useState('');
   const [resultData, setResultData] = useState(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const router = useRouter();
   
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,11 +35,33 @@ const Home = () => {
     }
   };
 
+  const handleLogout = () => {
+    // Redirect to default route
+    router.push('/');
+  };
+
+  const handleHistory = () => {
+    // Redirect to history route
+    router.push('/history');
+  };
+
   return (
     <div className='bg-slate-700 w-100 min-h-[100vh] h-auto pb-10'>
       <h1 className='font-bold text-white flex-row text-center pt-[10vh] text-4xl'>
         Welcome to CryptoKhan
       </h1>
+      <button 
+        onClick={() => setIsMenuOpen(!isMenuOpen)} 
+        className='absolute top-4 right-4 bg-blue-500 text-white p-2 rounded'
+      >
+        ☰
+      </button>
+      {isMenuOpen && (
+        <div className='absolute top-16 right-4 bg-white shadow-lg rounded p-4'>
+          <button onClick={handleLogout} className='block text-black mb-2'>Logout</button>
+          <button onClick={handleHistory} className='block text-black'>History</button>
+        </div>
+      )}
       <form onSubmit={handleSubmit} className='flex flex-col items-center mt-4'>
         <textarea
           className='rounded-lg px-4 py-2 w-[600px] h-32 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-200 text-gray-800 placeholder-gray-500 resize-y'
