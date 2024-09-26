@@ -3,11 +3,11 @@ import { useState } from 'react';
 
 export default function Home() {
   const [encryptedFiles] = useState([
-    { text: 'io io hu 9i io... fd er.. 34 re', prediction: 'AES-256', date: '12 Feb 2024' },
-    { text: 'fg u8 4d ew... 8d we 39 lk', prediction: 'RSA-2048', date: '14 Feb 2024' },
-    { text: 'ty we... k4 gr re ui qw...', prediction: 'Blowfish', date: '16 Feb 2024' },
-    { text: 'l9 fj 3w.. pq ty 84.. zx qw', prediction: 'Triple DES', date: '18 Feb 2024' },
-    { text: '8d we lk.. fg io hu... io io', prediction: 'PGP', date: '22 Feb 2024' },
+    { text: 'io io hu 9i io... fd er.. 34 re', prediction: 'AES-256', date: '12 Sep 2024' },
+    { text: 'fg u8 4d ew... 8d we 39 lk', prediction: 'RSA-2048', date: '14 Sep 2024' },
+    { text: 'ty we... k4 gr re ui qw...', prediction: 'Blowfish', date: '16 Sep 2024' },
+    { text: 'l9 fj 3w.. pq ty 84.. zx qw', prediction: 'Triple DES', date: '18 Sep 2024' },
+    { text: '8d we lk.. fg io hu... io io', prediction: 'PGP', date: '22 Sep 2024' },
   ]);
 
   return (
